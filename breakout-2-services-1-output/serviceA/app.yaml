@@ -9,4 +9,4 @@ automatic_scaling:
   max_concurrent_requests: 20
 
 env_variables:
-  SERVICE_B_URL: "example-gcs-bucket"
+  SERVICE_B_URL: "https://ds-serviceb-dot-dev1-onb-playground-18fd.appspot.com"
