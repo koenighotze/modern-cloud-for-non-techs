@@ -1,0 +1,9 @@
+runtime: nodejs12
+service: ds-serviceb
+instance_class: F1
+automatic_scaling:
+  target_cpu_utilization: 0.50
+  max_instances: 2
+  min_pending_latency: 30ms
+  max_pending_latency: automatic
+  max_concurrent_requests: 20
