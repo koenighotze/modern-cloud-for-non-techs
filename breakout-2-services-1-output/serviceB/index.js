@@ -4,7 +4,10 @@ const port = process.env.PORT || 3000
 
 app.get('/now', (req, res) => {
   const date = new Date()
-  res.send({ date })
+  res.send({
+    date,
+    uptime: process.uptime()
+  })
 })
 
 app.listen(port, () => {
