@@ -9,11 +9,9 @@ on:
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x, 14.x]        
-
     steps:
     - uses: actions/checkout@v2
 
@@ -30,7 +28,6 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
 
@@ -54,7 +51,10 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   build:
-    needs: test-and-lint
+    needs:
+      - unit-test
+      - lint
+      - security-scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
