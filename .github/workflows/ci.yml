@@ -1,4 +1,4 @@
-name: Node.js CI
+name: CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test-and-lint:
+  unit-test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -28,8 +28,30 @@ jobs:
     - name: Run unit tests
       run: npm test
 
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Load dependencies
+      run: npm ci
+
+    - name: Lint source code
+      run: npm run lint
+      
     - name: Lint Dockerfile
       run: docker run --rm -i hadolint/hadolint < Dockerfile
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Scan for vulnerabilities
+      uses: snyk/actions/node@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   build:
     needs: test-and-lint
@@ -47,7 +69,7 @@ jobs:
         run: docker build . --label "maintainer=Koenighotze" --label "version=${GITHUB_SHA}" --tag ${GITHUB_REPOSITORY}:${GITHUB_SHA} --tag ${GITHUB_REPOSITORY}:latest
 
       - name: Push image
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: | 
           docker push ${GITHUB_REPOSITORY}:${GITHUB_SHA}  
           docker push ${GITHUB_REPOSITORY}:latest

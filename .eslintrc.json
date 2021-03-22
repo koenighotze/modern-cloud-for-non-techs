@@ -1,0 +1,17 @@
+{
+    "extends": [
+        "eslint:recommended"
+    ],
+    "env": {
+        "node": true,
+        "jest": true,
+        "es2020": true
+    },
+    "rules": {
+        "quotes": [1, "single", { "avoidEscape": true }],
+        "semi": [
+            1,
+            "never"
+        ]
+    }
+}
