@@ -26,6 +26,13 @@ jobs:
     - name: Run unit tests
       run: npm test
 
+    - name: Upload report to codacy
+      uses: codacy/codacy-coverage-reporter-action@master
+      with:
+        project-token: ${{ secrets.CODACY_API_TOKEN }}
+        coverage-reports: coverage/lcov.info
+      continue-on-error: true
+
   lint:
     runs-on: ubuntu-latest
     steps:
