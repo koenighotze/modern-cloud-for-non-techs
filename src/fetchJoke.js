@@ -6,7 +6,7 @@ const fetchJoke = async () => {
     
     const { setup, punchline } = data[0]
 
-    return `${setup} ${punchline}`
+    return `${setup}: ${punchline}`
 }
 
 module.exports = fetchJoke
