@@ -24,4 +24,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${GITHUB_REPOSITORY}:latest,${GITHUB_REPOSITORY}:${GITHUB_SHA}
+
+          # --label "maintainer=Koenighotze" --label "version=${GITHUB_SHA}" 
+          tags: ${{ GITHUB_REPOSITORY }}:latest,${{ GITHUB_REPOSITORY }}:${{ GITHUB_SHA }}
